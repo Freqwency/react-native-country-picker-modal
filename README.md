@@ -2,31 +2,19 @@
   Country Picker for React Native.
 </h3>
 
-<p>
-   <a href="https://reactnative.gallery/xcarpentier/country-picker"><img src="https://img.shields.io/badge/reactnative.gallery-%F0%9F%8E%AC-green.svg"/></a>
-  <a href="https://www.npmjs.com/package/react-native-country-picker-modal"><img src="https://img.shields.io/npm/v/react-native-country-picker-modal.svg?style=flat-square"></a>
-  <a href="https://www.npmjs.com/package/react-native-country-picker-modal"><img src="https://img.shields.io/npm/dm/react-native-country-picker-modal.svg?style=flat-square"></a>
-  <a href="#hire-an-expert"><img src="https://img.shields.io/badge/%F0%9F%92%AA-hire%20an%20expert-brightgreen"/></a>
-</p>
-
 | iOS                                                                                               | Android                                                                                           | Web                                                                                               |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | <img  src="https://media.giphy.com/media/cKmlP4Ue5pUrH0DQLi/giphy.gif" width="200" height="400"/> | <img  src="https://media.giphy.com/media/Q7SDti4eARGx2CQIGE/giphy.gif" width="200" height="400"/> | <img  src="https://media.giphy.com/media/gKl3z3c7sVVL7KSSh8/giphy.gif" width="250" height="400"/> |
 
-## Demo
-
-- 🎉[ GO TO WEB DEMO ](http://xcarpentier.github.io/react-native-country-picker-modal/) 🎉
-- [snack example](https://snack.expo.io/@xcarpentier/bossy-marshmallows)
-
 ## Installation
 
 ```bash
-$ yarn add react-native-country-picker-modal
+$ yarn add @freqwency/react-native-country-picker
 ```
 
 ## Basic Usage
 
-For more complete example open [App.tsx](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/App.tsx)
+For more complete example open [App.tsx](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/App.tsx)
 
 ```tsx
 import React, { useState } from 'react'
@@ -106,12 +94,12 @@ export default function App() {
 
 ## Props
 
-- `countryCode`: [CountryCode](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L252)
-- `region?`:[Region](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L272)
-- `subregion?`: [Subregion](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L282)
-- `countryCodes?`: [CountryCode](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L254)
-- `theme?`: [Theme](https://github.com/xcarpentier/react-native-country-picker-modal/blob/7611d34fa35744dbec3fbcdd9b4401494b1ba8c4/src/CountryTheme.ts#L5)
-- `translation?`: [TranslationLanguageCode](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L309)
+- `countryCode`: [CountryCode](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L252)
+- `region?`:[Region](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L272)
+- `subregion?`: [Subregion](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L282)
+- `countryCodes?`: [CountryCode](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L254)
+- `theme?`: [Theme](https://github.com/Freqwency/react-native-country-picker-modal/blob/7611d34fa35744dbec3fbcdd9b4401494b1ba8c4/src/CountryTheme.ts#L5)
+- `translation?`: [TranslationLanguageCode](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L309)
 - `modalProps?`: [ModalProps](https://facebook.github.io/react-native/docs/modal#props)
 - `filterProps?`: [CountryFilterProps](https://facebook.github.io/react-native/docs/textinput#props)
 - `flatListProps?`: [FlatListProps<Country>](https://facebook.github.io/react-native/docs/flatlist#props)
@@ -129,16 +117,16 @@ export default function App() {
 - `withModal?`: boolean
 - `visible?`: boolean
 - `containerButtonStyle?`: `StyleProp<ViewStyle>`
-- `renderFlagButton?`(props: (FlagButton['props'])): ReactNode ([FlagButton props](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/FlagButton.tsx#L73))
+- `renderFlagButton?`(props: (FlagButton['props'])): ReactNode ([FlagButton props](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/FlagButton.tsx#L73))
 - `renderCountryFilter?`(props: CountryFilter['props']): ReactNode ([CountryFilter props is TextInputProps](https://facebook.github.io/react-native/docs/textinput#props))
-- `onSelect`(country: Country): void ([Country](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L263))
+- `onSelect`(country: Country): void ([Country](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L263))
 - `onOpen`(): void
 - `onClose`(): void
 - `closeButtonImage?`: [ImageSourcePropType](https://facebook.github.io/react-native/docs/image#props)
 - `closeButtonStyle?`: StyleProp<ViewStyle>
 - `closeButtonImageStyle?`: StyleProp<ImageStyle>
 - `disableNativeModal?`: boolean (you have to wrap your all app with CountryModalProvider)
-- `preferredCountries`: [CountryCode](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/src/types.ts#L254) preferred countries they appear first (`withAlphaFilter` must be false)
+- `preferredCountries`: [CountryCode](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/src/types.ts#L254) preferred countries they appear first (`withAlphaFilter` must be false)
 
 ## Dark theme example
 
@@ -168,30 +156,17 @@ YES
 
 YES : It used the world-countries package and image is stored into json and base64.
 
-## Tiers lib using this lib
-
-- [react-native-phone-verification](https://github.com/joinspontaneous/react-native-phone-verification)
-
-[> Your project?](https://github.com/xcarpentier/react-native-linkedin/issues/new)
-
-## See also
-
-- [react-native-linkedin](https://github.com/xcarpentier/react-native-linkedin)
 
 ## Contribution
 
-- [@xcapentier](mailto:contact@xaviercarpentier.com) The main author.
+- [@jadsalhani](mailto:support@jadsalhani.com) The main author.
 
 ## Questions
 
-Feel free to [contact me](mailto:contact@xaviercarpentier.com) or [create an issue](https://github.com/xcarpentier/react-native-country-picker/issues/new)
+Feel free to [contact me](mailto:contact@jadsalhani.com) or [create an issue](https://github.com/Freqwency/react-native-country-picker-modal/issues/new)
 
 > made with ♥
 
 ## Licence
 
-[MIT](https://github.com/xcarpentier/react-native-country-picker-modal/blob/master/LICENSE.md)
-
-## Hire an expert!
-
-Looking for a ReactNative freelance expert with more than 12 years experience? Contact me from my [website](https://xaviercarpentier.com)!
+[MIT](https://github.com/Freqwency/react-native-country-picker-modal/blob/master/LICENSE.md)
