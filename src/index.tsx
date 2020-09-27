@@ -40,9 +40,10 @@ interface Props {
   disableNativeModal?: boolean
   visible?: boolean
   containerButtonStyle?: StyleProp<ViewStyle>
+  isMultiple?: boolean
   renderFlagButton?(props: FlagButtonProps): ReactNode
   renderCountryFilter?(props: CountryFilterProps): ReactNode
-  onSelect(country: Country): void
+  onSelect(country: Country[]): void
   onOpen?(): void
   onClose?(): void
 }
