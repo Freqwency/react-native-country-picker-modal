@@ -9,6 +9,7 @@ import {
   PixelRatio,
   FlatListProps,
   Dimensions,
+  Text,
 } from 'react-native'
 import { useTheme } from './CountryTheme'
 import { Country, Omit } from './types'
@@ -88,6 +89,7 @@ interface CountryItemProps {
   withEmoji?: boolean
   withCallingCode?: boolean
   withCurrency?: boolean
+  selectedCountries?: Country[]
   onSelect(country: Country): void
 }
 const CountryItem = (props: CountryItemProps) => {
@@ -99,6 +101,7 @@ const CountryItem = (props: CountryItemProps) => {
     withEmoji,
     withCallingCode,
     withCurrency,
+    selectedCountries,
   } = props
   const extraContent: string[] = []
   if (
@@ -111,6 +114,19 @@ const CountryItem = (props: CountryItemProps) => {
   if (withCurrency && country.currency && country.currency.length > 0) {
     extraContent.push(country.currency.join('|'))
   }
+
+  const checkSelected = () => {
+    let found = false
+    if (selectedCountries) {
+      selectedCountries.forEach(element => {
+        if (element.cca2 === country.cca2) {
+          found = true
+        }
+      })
+    }
+    return found
+  }
+
   return (
     <TouchableOpacity
       key={country.cca2}
@@ -134,6 +150,7 @@ const CountryItem = (props: CountryItemProps) => {
             {extraContent.length > 0 && ` (${extraContent.join(', ')})`}
           </CountryText>
         </View>
+        {checkSelected() ? <Text>Selected</Text> : null}
       </View>
     </TouchableOpacity>
   )
@@ -160,6 +177,7 @@ interface CountryListProps {
   withCallingCode?: boolean
   withCurrency?: boolean
   flatListProps?: FlatListProps<Country>
+  selectedCountries?: Country[]
   onSelect(country: Country): void
 }
 
@@ -186,6 +204,7 @@ export const CountryList = (props: CountryListProps) => {
     filter,
     flatListProps,
     filterFocus,
+    selectedCountries,
   } = props
 
   const flatListRef = useRef<FlatList<Country>>(null)
@@ -241,6 +260,7 @@ export const CountryList = (props: CountryListProps) => {
           withCallingCode,
           withCurrency,
           onSelect,
+          selectedCountries,
         })}
         {...{
           data: search(filter, data),

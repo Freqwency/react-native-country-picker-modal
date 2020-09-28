@@ -66,6 +66,7 @@ export default function App() {
   const [withFlag, setWithFlag] = useState<boolean>(true)
   const [withEmoji, setWithEmoji] = useState<boolean>(true)
   const [withFilter, setWithFilter] = useState<boolean>(true)
+  const [isMultiple, setIsMultiple] = useState<boolean>(true)
   const [withAlphaFilter, setWithAlphaFilter] = useState<boolean>(false)
   const [withCallingCode, setWithCallingCode] = useState<boolean>(false)
   const [withCurrency, setWithCurrency] = useState<boolean>(false)
@@ -143,6 +144,11 @@ export default function App() {
           value={withFlagButton}
           onValueChange={setWithFlagButton}
         />
+        <Option
+          title='is Multiple'
+          value={isMultiple}
+          onValueChange={setIsMultiple}
+        />
         <CountryPicker
           theme={dark ? DARK_THEME : {}}
           {...{
@@ -167,6 +173,7 @@ export default function App() {
             },
             onClose: () => setVisible(false),
             onOpen: () => setVisible(true),
+            isMultiple,
           }}
         />
         <Text style={styles.instructions}>Press on the flag to open modal</Text>

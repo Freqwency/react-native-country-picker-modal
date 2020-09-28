@@ -18,6 +18,7 @@ import { CountryList } from './CountryList'
 interface State {
   visible: boolean
   countries: Country[]
+  selectedCountries: Country[]
   filter?: string
   filterFocus?: boolean
 }
@@ -69,9 +70,10 @@ interface CountryPickerProps {
   closeButtonImage?: ImageSourcePropType
   closeButtonStyle?: StyleProp<ViewStyle>
   closeButtonImageStyle?: StyleProp<ImageStyle>
+  isMultiple?: boolean
   renderFlagButton?(props: FlagButton['props']): ReactNode
   renderCountryFilter?(props: CountryFilter['props']): ReactNode
-  onSelect(country: Country): void
+  onSelect(country: Country[]): void
   onOpen?(): void
   onClose?(): void
 }
@@ -109,22 +111,28 @@ export const CountryPicker = (props: CountryPickerProps) => {
     closeButtonImageStyle,
     excludeCountries,
     placeholder,
-    preferredCountries
+    preferredCountries,
+    isMultiple,
   } = props
   const [state, setState] = useState<State>({
     visible: props.visible || false,
     countries: [],
+    selectedCountries: [],
     filter: '',
     filterFocus: false,
   })
   const { translation, getCountriesAsync } = useContext()
-  const { visible, filter, countries, filterFocus } = state
+  const { visible, filter, countries, filterFocus, selectedCountries } = state
 
   useEffect(() => {
     if (state.visible !== props.visible) {
       setState({ ...state, visible: props.visible || false })
     }
   }, [props.visible])
+
+  useEffect(() => {
+    setState({ ...state, selectedCountries: [] })
+  }, [isMultiple])
 
   const onOpen = () => {
     setState({ ...state, visible: true })
@@ -137,13 +145,24 @@ export const CountryPicker = (props: CountryPickerProps) => {
     if (handleClose) {
       handleClose()
     }
+    if (isMultiple) {
+      onSelect(selectedCountries)
+    }
   }
   const setFilter = (filter: string) => setState({ ...state, filter })
   const setCountries = (countries: Country[]) =>
     setState({ ...state, countries })
   const onSelectClose = (country: Country) => {
-    onSelect(country)
+    onSelect([country])
     onClose()
+  }
+  const onSelectMultiple = (country: Country) => {
+    const temp = selectedCountries
+    const available = temp.findIndex(element => {
+      return element.cca2 === country.cca2
+    })
+    available === -1 ? temp.push(country) : temp.splice(available, 1)
+    setState({ ...state, selectedCountries: temp })
   }
   const onFocus = () => setState({ ...state, filterFocus: true })
   const onBlur = () => setState({ ...state, filterFocus: false })
@@ -169,7 +188,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
       countryCodes,
       excludeCountries,
       preferredCountries,
-      withAlphaFilter
+      withAlphaFilter,
     )
       .then(setCountries)
       .catch(console.warn)
@@ -191,6 +210,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
             closeButtonImageStyle,
             closeButtonStyle,
             withCloseButton,
+            isMultiple,
           }}
           renderFilter={(props: CountryFilter['props']) =>
             renderFilter({
@@ -206,8 +226,9 @@ export const CountryPicker = (props: CountryPickerProps) => {
         />
         <CountryList
           {...{
-            onSelect: onSelectClose,
+            onSelect: isMultiple ? onSelectMultiple : onSelectClose,
             data: countries,
+            selectedCountries,
             letters: [],
             withAlphaFilter: withAlphaFilter && filter === '',
             withCallingCode,
