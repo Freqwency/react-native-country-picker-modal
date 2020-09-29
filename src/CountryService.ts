@@ -128,7 +128,7 @@ export const getCountriesAsync = async (
   countryCodes?: CountryCode[],
   excludeCountries?: CountryCode[],
   preferredCountries?: CountryCode[],
-  withAlphaFilter?: boolean
+  withAlphaFilter?: boolean,
 ): Promise<Country[]> => {
   const countriesRaw = await loadDataAsync(flagType)
   if (!countriesRaw) {
@@ -136,27 +136,30 @@ export const getCountriesAsync = async (
   }
 
   if (preferredCountries && !withAlphaFilter) {
-    const newCountryCodeList = [...preferredCountries, ...CountryCodeList.filter(code => !preferredCountries.includes(code))]
+    const newCountryCodeList = [
+      ...preferredCountries,
+      ...CountryCodeList.filter(code => !preferredCountries.includes(code)),
+    ]
 
-    const countries = newCountryCodeList.filter(isCountryPresent(countriesRaw))
-    .map((cca2: CountryCode) => ({
-      cca2,
-      ...{
-        ...countriesRaw[cca2],
-        name:
-          (countriesRaw[cca2].name as TranslationLanguageCodeMap)[
-            translation
-          ] ||
-          (countriesRaw[cca2].name as TranslationLanguageCodeMap)['common'],
-      },
-    }))
-    .filter(isRegion(region))
-    .filter(isSubregion(subregion))
-    .filter(isIncluded(countryCodes))
-    .filter(isExcluded(excludeCountries))
-    
+    const countries = newCountryCodeList
+      .filter(isCountryPresent(countriesRaw))
+      .map((cca2: CountryCode) => ({
+        cca2,
+        ...{
+          ...countriesRaw[cca2],
+          name:
+            (countriesRaw[cca2].name as TranslationLanguageCodeMap)[
+              translation
+            ] ||
+            (countriesRaw[cca2].name as TranslationLanguageCodeMap)['common'],
+        },
+      }))
+      .filter(isRegion(region))
+      .filter(isSubregion(subregion))
+      .filter(isIncluded(countryCodes))
+      .filter(isExcluded(excludeCountries))
+
     return countries
-
   } else {
     const countries = CountryCodeList.filter(isCountryPresent(countriesRaw))
       .map((cca2: CountryCode) => ({
@@ -200,9 +203,7 @@ export const search = (
   if (data.length === 0) {
     return []
   }
-  if (!fuse) {
-    fuse = new Fuse<Country>(data, options)
-  }
+  fuse = new Fuse<Country>(data, options)
   if (filter && filter !== '') {
     const result = fuse.search(filter)
     return result

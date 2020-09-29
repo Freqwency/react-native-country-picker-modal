@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native'
 import CountryPicker, { CountryModalProvider } from './src/'
-import { CountryCode, Country } from './src/types'
+import { CountryCode, Country, TranslationLanguageCode } from './src/types'
 import { Row } from './src/Row'
 import { DARK_THEME } from './src/CountryTheme'
 
@@ -54,7 +54,7 @@ const Option = ({ value, onValueChange, title }: OptionProps) => (
 
 export default function App() {
   const [countryCode, setCountryCode] = useState<CountryCode | undefined>()
-  const [country, setCountry] = useState<Country>(null)
+  const [country, setCountry] = useState<Country[]>(null)
   const [withCountryNameButton, setWithCountryNameButton] = useState<boolean>(
     false,
   )
@@ -74,8 +74,11 @@ export default function App() {
   const [visible, setVisible] = useState<boolean>(false)
   const [dark, setDark] = useState<boolean>(false)
   const [disableNativeModal, setDisableNativeModal] = useState<boolean>(false)
-  const onSelect = (country: Country) => {
-    setCountryCode(country.cca2)
+  const [translation, setTranslation] = useState<TranslationLanguageCode>(
+    'common',
+  )
+  const onSelect = (country: Country[]) => {
+    setCountryCode(country[0]?.cca2)
     setCountry(country)
   }
   const switchVisible = () => setVisible(!visible)
@@ -149,12 +152,19 @@ export default function App() {
           value={isMultiple}
           onValueChange={setIsMultiple}
         />
+        <Option
+          title='English/Arabic'
+          value={translation === 'common'}
+          onValueChange={() =>
+            setTranslation(translation === 'common' ? 'urd' : 'common')
+          }
+        />
         <CountryPicker
           theme={dark ? DARK_THEME : {}}
           {...{
             countryCode,
             withFilter,
-            excludeCountries: ['FR'],
+            excludeCountries: [],
             withFlag,
             withCurrencyButton,
             withCallingCodeButton,
@@ -167,13 +177,14 @@ export default function App() {
             withFlagButton,
             onSelect,
             disableNativeModal,
-            preferredCountries: ['US', 'GB'],
+            preferredCountries: [],
             modalProps: {
               visible,
             },
             onClose: () => setVisible(false),
             onOpen: () => setVisible(true),
             isMultiple,
+            translation,
           }}
         />
         <Text style={styles.instructions}>Press on the flag to open modal</Text>

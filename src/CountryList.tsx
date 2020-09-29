@@ -9,13 +9,16 @@ import {
   PixelRatio,
   FlatListProps,
   Dimensions,
-  Text,
+  Image,
 } from 'react-native'
 import { useTheme } from './CountryTheme'
 import { Country, Omit } from './types'
 import { Flag } from './Flag'
 import { useContext } from './CountryContext'
 import { CountryText } from './CountryText'
+
+// tslint:disable-next-line
+const checkedIcon = require('./assets/images/checked.png')
 
 const borderBottomWidth = 2 / PixelRatio.get()
 
@@ -46,6 +49,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 5,
   },
+  itemCountryAR: {
+    flexDirection: 'row-reverse',
+  },
   itemCountryName: {
     width: '90%',
   },
@@ -56,6 +62,7 @@ const styles = StyleSheet.create({
     borderBottomWidth,
     width: '100%',
   },
+  iconStyle: { width: 20, height: 20 },
 })
 
 interface LetterProps {
@@ -90,6 +97,7 @@ interface CountryItemProps {
   withCallingCode?: boolean
   withCurrency?: boolean
   selectedCountries?: Country[]
+  translation?: string
   onSelect(country: Country): void
 }
 const CountryItem = (props: CountryItemProps) => {
@@ -102,6 +110,7 @@ const CountryItem = (props: CountryItemProps) => {
     withCallingCode,
     withCurrency,
     selectedCountries,
+    translation,
   } = props
   const extraContent: string[] = []
   if (
@@ -134,7 +143,13 @@ const CountryItem = (props: CountryItemProps) => {
       onPress={() => onSelect(country)}
       {...{ activeOpacity }}
     >
-      <View style={[styles.itemCountry, { height: itemHeight }]}>
+      <View
+        style={[
+          styles.itemCountry,
+          translation === 'urd' && styles.itemCountryAR,
+          { height: itemHeight },
+        ]}
+      >
         {withFlag && (
           <Flag
             {...{ withEmoji, countryCode: country.cca2, flagSize: flagSize! }}
@@ -150,7 +165,9 @@ const CountryItem = (props: CountryItemProps) => {
             {extraContent.length > 0 && ` (${extraContent.join(', ')})`}
           </CountryText>
         </View>
-        {checkSelected() ? <Text>Selected</Text> : null}
+        {checkSelected() ? (
+          <Image source={checkedIcon} style={styles.iconStyle} />
+        ) : null}
       </View>
     </TouchableOpacity>
   )
@@ -164,8 +181,8 @@ const MemoCountryItem = memo<CountryItemProps>(CountryItem)
 const renderItem = (props: Omit<CountryItemProps, 'country'>) => ({
   item: country,
 }: ListRenderItemInfo<Country>) => (
-  <MemoCountryItem {...{ country, ...props }} />
-)
+    <MemoCountryItem {...{ country, ...props }} />
+  )
 
 interface CountryListProps {
   data: Country[]
@@ -178,6 +195,7 @@ interface CountryListProps {
   withCurrency?: boolean
   flatListProps?: FlatListProps<Country>
   selectedCountries?: Country[]
+  translation?: string
   onSelect(country: Country): void
 }
 
@@ -205,6 +223,7 @@ export const CountryList = (props: CountryListProps) => {
     flatListProps,
     filterFocus,
     selectedCountries,
+    translation,
   } = props
 
   const flatListRef = useRef<FlatList<Country>>(null)
@@ -243,7 +262,6 @@ export const CountryList = (props: CountryListProps) => {
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <FlatList
-        onScrollToIndexFailed
         ref={flatListRef}
         testID='list-countries'
         keyboardShouldPersistTaps='handled'
@@ -261,6 +279,7 @@ export const CountryList = (props: CountryListProps) => {
           withCurrency,
           onSelect,
           selectedCountries,
+          translation,
         })}
         {...{
           data: search(filter, data),

@@ -145,9 +145,13 @@ export const CountryPicker = (props: CountryPickerProps) => {
     if (handleClose) {
       handleClose()
     }
-    if (isMultiple) {
-      onSelect(selectedCountries)
+  }
+  const onDone = () => {
+    setState({ ...state, filter: '', visible: false })
+    if (handleClose) {
+      handleClose()
     }
+    onSelect(selectedCountries)
   }
   const setFilter = (filter: string) => setState({ ...state, filter })
   const setCountries = (countries: Country[]) =>
@@ -211,6 +215,8 @@ export const CountryPicker = (props: CountryPickerProps) => {
             closeButtonStyle,
             withCloseButton,
             isMultiple,
+            translation,
+            onDone,
           }}
           renderFilter={(props: CountryFilter['props']) =>
             renderFilter({
@@ -220,6 +226,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
               value: filter,
               onFocus,
               onBlur,
+              translation,
               ...filterProps,
             })
           }
@@ -238,6 +245,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
             filter,
             filterFocus,
             flatListProps,
+            translation,
           }}
         />
       </CountryModal>
