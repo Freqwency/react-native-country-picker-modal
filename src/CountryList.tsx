@@ -180,8 +180,8 @@ const MemoCountryItem = memo<CountryItemProps>(CountryItem)
 const renderItem = (props: Omit<CountryItemProps, 'country'>) => ({
   item: country,
 }: ListRenderItemInfo<Country>) => (
-  <MemoCountryItem {...{ country, ...props }} />
-)
+    <MemoCountryItem {...{ country, ...props }} />
+  )
 
 interface CountryListProps {
   data: Country[]
@@ -261,7 +261,6 @@ export const CountryList = (props: CountryListProps) => {
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <FlatList
-        onScrollToIndexFailed
         ref={flatListRef}
         testID='list-countries'
         keyboardShouldPersistTaps='handled'
