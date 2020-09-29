@@ -1,8 +1,8 @@
 {
   "name": "@freqwency/react-native-country-picker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React-Native Country Picker",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
