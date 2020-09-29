@@ -10,30 +10,35 @@ const styles = StyleSheet.create({
       web: {
         outlineWidth: 0,
         outlineColor: 'transparent',
-        outlineOffset: 0
-      }
-    })
-  }
+        outlineOffset: 0,
+      },
+    }),
+  },
 })
 
 export type CountryFilterProps = TextInputProps
 
 export const CountryFilter = (props: CountryFilterProps) => {
+  const { translation } = props
   const {
     filterPlaceholderTextColor,
     fontFamily,
     fontSize,
-    onBackgroundTextColor
+    onBackgroundTextColor,
   } = useTheme()
   return (
     <TextInput
-      testID="text-input-country-filter"
+      testID='text-input-country-filter'
       autoCorrect={false}
       placeholderTextColor={filterPlaceholderTextColor}
       style={[
         styles.input,
-        { fontFamily, fontSize, color: onBackgroundTextColor }
+        { fontFamily, fontSize, color: onBackgroundTextColor },
+        translation === 'urd' && { textAlign: 'right' },
       ]}
+      placeholder={
+        translation === 'urd' ? 'أدخل اسم الدولة' : 'Enter country name'
+      }
       {...props}
     />
   )
@@ -41,5 +46,4 @@ export const CountryFilter = (props: CountryFilterProps) => {
 
 CountryFilter.defaultProps = {
   autoFocus: false,
-  placeholder: 'Enter country name'
 }
