@@ -16,7 +16,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export type CountryFilterProps = TextInputProps
+export interface CountryFilterProps extends TextInputProps {
+  translation: string
+}
 
 export const CountryFilter = (props: CountryFilterProps) => {
   const { translation } = props

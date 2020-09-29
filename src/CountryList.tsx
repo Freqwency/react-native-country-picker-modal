@@ -17,6 +17,7 @@ import { Flag } from './Flag'
 import { useContext } from './CountryContext'
 import { CountryText } from './CountryText'
 
+// tslint:disable-next-line
 const checkedIcon = require('./assets/images/checked.png')
 
 const borderBottomWidth = 2 / PixelRatio.get()
