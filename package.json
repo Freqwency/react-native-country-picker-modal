@@ -1,12 +1,12 @@
 {
-  "name": "@freqwency/react-native-country-picker",
-  "version": "0.0.4",
+  "name": "@jadsalhani/react-native-country-picker",
+  "version": "0.0.5",
   "description": "React-Native Country Picker",
   "main": "node_modules/expo/AppEntry.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Freqwency/react-native-country-picker-modal.git"
+    "url": "git+https://github.com/jadsalhani/react-native-country-picker-modal.git"
   },
   "scripts": {
     "start": "yarn config:dev && expo start",
@@ -38,10 +38,10 @@
     "country",
     "flag"
   ],
-  "author": "Freqwency",
+  "author": "jadsalhani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Freqwency/react-native-country-picker-modal/issues"
+    "url": "https://github.com/jadsalhani/react-native-country-picker-modal/issues"
   },
   "dependencies": {
     "@callstack/react-theme-provider": "3.0.3",
@@ -109,8 +109,5 @@
   },
   "resolutions": {
     "mem": "^4.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   }
 }
