@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
   },
   itemCountryName: {
     width: '90%',
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  itemCountryImage: {
+    width: '10%',
   },
   list: {
     flex: 1,
@@ -150,12 +155,12 @@ const CountryItem = (props: CountryItemProps) => {
           { height: itemHeight },
         ]}
       >
+      <View style={styles.itemCountryName}>
         {withFlag && (
           <Flag
             {...{ withEmoji, countryCode: country.cca2, flagSize: flagSize! }}
           />
         )}
-        <View style={styles.itemCountryName}>
           <CountryText
             allowFontScaling={false}
             numberOfLines={2}
@@ -166,7 +171,8 @@ const CountryItem = (props: CountryItemProps) => {
           </CountryText>
         </View>
         {checkSelected() ? (
-          <Image source={checkedIcon} style={styles.iconStyle} />
+          <View style={styles.itemCountryImage}>
+          <Image source={checkedIcon} style={styles.iconStyle} /></View>
         ) : null}
       </View>
     </TouchableOpacity>

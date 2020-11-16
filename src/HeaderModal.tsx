@@ -8,6 +8,7 @@ import {
   ImageStyle,
   TouchableOpacity,
   Text,
+  TextStyle,
 } from 'react-native'
 import CloseButton from './CloseButton'
 import { TranslationLanguageCode } from './types'
@@ -21,6 +22,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     alignItems: 'center',
   },
+  headerField: {flex:0.2, alignItems:'center'},
+  headerCenter: {flex:0.6}
 })
 
 interface HeaderModalProps {
@@ -31,6 +34,7 @@ interface HeaderModalProps {
   closeButtonImageStyle?: StyleProp<ImageStyle>
   isMultiple?: boolean
   translation?: TranslationLanguageCode
+  doneTextStyle?: StyleProp<TextStyle>
   onClose(): void
   onDone(): void
   renderFilter(props: HeaderModalProps): ReactNode
@@ -47,9 +51,11 @@ export const HeaderModal = (props: HeaderModalProps) => {
     isMultiple,
     translation,
     onDone,
+    doneTextStyle
   } = props
   return (
     <View style={translation === 'urd' ? styles.containerAR : styles.container}>
+      <View style={styles.headerField}>
       {withCloseButton && (
         <CloseButton
           image={closeButtonImage}
@@ -58,12 +64,17 @@ export const HeaderModal = (props: HeaderModalProps) => {
           onPress={onClose}
         />
       )}
+      </View>
+      <View style={styles.headerCenter}>
       {withFilter && renderFilter(props)}
+      </View>
+      <View style={styles.headerField}>
       {isMultiple && (
         <TouchableOpacity onPress={onDone}>
-          <Text>{translation === 'urd' ? 'تم' : 'Done'}</Text>
+          <Text style={doneTextStyle}>{translation === 'urd' ? 'تم' : 'Done'}</Text>
         </TouchableOpacity>
       )}
+      </View>
     </View>
   )
 }

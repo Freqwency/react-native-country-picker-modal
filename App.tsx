@@ -186,6 +186,7 @@ export default function App() {
             isMultiple,
             translation,
           }}
+          doneTextStyle={{color: '#77CBD2', fontWeight: 'bold'}}
         />
         <Text style={styles.instructions}>Press on the flag to open modal</Text>
         <Button

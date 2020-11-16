@@ -10,7 +10,7 @@ import {
 import { CountryProvider, DEFAULT_COUNTRY_CONTEXT } from './CountryContext'
 import { ThemeProvider, DEFAULT_THEME, Theme } from './CountryTheme'
 import { CountryFilterProps } from './CountryFilter'
-import { StyleProp, ViewStyle, ModalProps, FlatListProps } from 'react-native'
+import { StyleProp, ViewStyle, ModalProps, FlatListProps, TextStyle } from 'react-native'
 import { CountryPicker } from './CountryPicker'
 
 interface Props {
@@ -41,6 +41,7 @@ interface Props {
   visible?: boolean
   containerButtonStyle?: StyleProp<ViewStyle>
   isMultiple?: boolean
+  doneTextStyle?: StyleProp<TextStyle>
   renderFlagButton?(props: FlagButtonProps): ReactNode
   renderCountryFilter?(props: CountryFilterProps): ReactNode
   onSelect(country: Country[]): void
