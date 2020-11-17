@@ -10,6 +10,8 @@ import {
   FlatListProps,
   Dimensions,
   Image,
+  ImageStyle,
+  StyleProp,
 } from 'react-native'
 import { useTheme } from './CountryTheme'
 import { Country, Omit } from './types'
@@ -54,6 +56,11 @@ const styles = StyleSheet.create({
   },
   itemCountryName: {
     width: '90%',
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  itemCountryImage: {
+    width: '10%',
   },
   list: {
     flex: 1,
@@ -98,6 +105,7 @@ interface CountryItemProps {
   withCurrency?: boolean
   selectedCountries?: Country[]
   translation?: string
+  checkedIconStyle?: StyleProp<ImageStyle>
   onSelect(country: Country): void
 }
 const CountryItem = (props: CountryItemProps) => {
@@ -111,6 +119,7 @@ const CountryItem = (props: CountryItemProps) => {
     withCurrency,
     selectedCountries,
     translation,
+    checkedIconStyle
   } = props
   const extraContent: string[] = []
   if (
@@ -150,12 +159,12 @@ const CountryItem = (props: CountryItemProps) => {
           { height: itemHeight },
         ]}
       >
+      <View style={styles.itemCountryName}>
         {withFlag && (
           <Flag
             {...{ withEmoji, countryCode: country.cca2, flagSize: flagSize! }}
           />
         )}
-        <View style={styles.itemCountryName}>
           <CountryText
             allowFontScaling={false}
             numberOfLines={2}
@@ -166,7 +175,8 @@ const CountryItem = (props: CountryItemProps) => {
           </CountryText>
         </View>
         {checkSelected() ? (
-          <Image source={checkedIcon} style={styles.iconStyle} />
+          <View style={styles.itemCountryImage}>
+          <Image source={checkedIcon} style={[styles.iconStyle, checkedIconStyle]} /></View>
         ) : null}
       </View>
     </TouchableOpacity>
@@ -196,6 +206,7 @@ interface CountryListProps {
   flatListProps?: FlatListProps<Country>
   selectedCountries?: Country[]
   translation?: string
+  checkedIconStyle?: StyleProp<ImageStyle>
   onSelect(country: Country): void
 }
 
@@ -224,6 +235,7 @@ export const CountryList = (props: CountryListProps) => {
     filterFocus,
     selectedCountries,
     translation,
+    checkedIconStyle
   } = props
 
   const flatListRef = useRef<FlatList<Country>>(null)
@@ -280,6 +292,7 @@ export const CountryList = (props: CountryListProps) => {
           onSelect,
           selectedCountries,
           translation,
+          checkedIconStyle
         })}
         {...{
           data: search(filter, data),

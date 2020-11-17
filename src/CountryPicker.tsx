@@ -6,6 +6,7 @@ import {
   ViewStyle,
   ImageSourcePropType,
   ImageStyle,
+  TextStyle,
 } from 'react-native'
 import { CountryModal } from './CountryModal'
 import { HeaderModal } from './HeaderModal'
@@ -71,6 +72,8 @@ interface CountryPickerProps {
   closeButtonStyle?: StyleProp<ViewStyle>
   closeButtonImageStyle?: StyleProp<ImageStyle>
   isMultiple?: boolean
+  doneTextStyle?: StyleProp<TextStyle>
+  checkedIconStyle?: StyleProp<ImageStyle>
   renderFlagButton?(props: FlagButton['props']): ReactNode
   renderCountryFilter?(props: CountryFilter['props']): ReactNode
   onSelect(country: Country[]): void
@@ -113,6 +116,8 @@ export const CountryPicker = (props: CountryPickerProps) => {
     placeholder,
     preferredCountries,
     isMultiple,
+    doneTextStyle,
+    checkedIconStyle
   } = props
   const [state, setState] = useState<State>({
     visible: props.visible || false,
@@ -218,6 +223,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
             translation,
             onDone,
           }}
+          doneTextStyle={doneTextStyle}
           renderFilter={(props: CountryFilter['props']) =>
             renderFilter({
               ...props,
@@ -246,6 +252,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
             filterFocus,
             flatListProps,
             translation,
+            checkedIconStyle
           }}
         />
       </CountryModal>

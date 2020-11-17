@@ -57,8 +57,8 @@ const CloseButtonAndroid = (props: CloseButtonProps) => {
             source={closeImage}
             style={[
               styles.imageStyle,
+              { tintColor: onBackgroundTextColor },
               props.imageStyle,
-              { tintColor: onBackgroundTextColor }
             ]}
           />
         </View>
@@ -81,8 +81,8 @@ const CloseButtonIOS = (props: CloseButtonProps) => {
           source={closeImage}
           style={[
             styles.imageStyle,
+            { tintColor: onBackgroundTextColor },
             props.imageStyle,
-            { tintColor: onBackgroundTextColor }
           ]}
         />
       </TouchableOpacity>
